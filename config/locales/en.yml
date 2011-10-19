@@ -2,4 +2,15 @@
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
-  hello: "Hello world"
+  errors:
+    auth:
+      access_key_not_found: "Access key not found."
+      invalid_signature: "Signature does not match the request."
+      invalid_date: "Date is not within 10 minutes of server time."
+      not_attempted: "Signature authorization has not been attempted."
+  http:
+    c200: "OK"
+    c401: "Unauthorized"
+  msg:
+    private_key_removed: "(Private key removed for security)"
+    signature_success: "Signature verified."

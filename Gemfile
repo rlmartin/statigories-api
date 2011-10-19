@@ -4,6 +4,7 @@ source 'http://rubygems.org'
 
 gem 'rails', '3.1.0'
 
+gem "andand"
 gem "devise", ">= 1.4.5"
 gem "haml", ">= 3.1.2"
 gem "haml-rails", ">= 0.3.4", :group => :development

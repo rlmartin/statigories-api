@@ -1,11 +1,37 @@
 StatigoriesCom::Application.routes.draw do
-  #get \"users\/show\"
-
   root :to => "home#index"
 
-  devise_for :users
-  resources :users, :only => :show
+  match 'signature/check', :to => 'home#signature_check', :as => :signature_check
+  match 'signature/verify', :to => 'home#signature_verify', :as => :signature_check
+  get "time(.:format)", :to => "time#show", :as => :time
 
+  devise_for :users
+
+  devise_for :partners do
+    get "sign_in", :to => "devise/sessions#new", :as => :sign_in
+    delete "sign_out", :to => "devise/sessions#destroy", :as => :sign_out
+    get "sign_up", :to => "devise/registrations#new", :as => :sign_up
+  end
+  # Unfortunately, have to compile this list manually.
+  devise_scope :user do
+    get "partners/:partner_id/users/sign_in", :to => "devise/sessions#new", :as => :new_partner_user_session
+    post "partners/:partner_id/users/sign_in", :to => "devise/sessions#create", :as => :partner_user_session
+    delete "partners/:partner_id/users/sign_out", :to => "devise/sessions#destroy", :as => :destroy_partner_user_session
+    post "partners/:partner_id/users/password", :to => "devise/passwords#create", :as => :partner_user_password
+    get "partners/:partner_id/users/password/new", :to => "devise/passwords#new", :as => :new_partner_user_password
+    get "partners/:partner_id/users/password/edit", :to => "devise/passwords#edit", :as => :edit_partner_user_password
+    put "partners/:partner_id/users/password", :to => "devise/passwords#update"
+    get "partners/:partner_id/users/cancel", :to => "devise/registrations#cancel", :as => :cancel_partner_user_registration
+    post "partners/:partner_id/users", :to => "devise/registrations#create", :as => :partner_user_registration
+    get "partners/:partner_id/users/sign_up", :to => "devise/registrations#new", :as => :new_partner_user_registration
+    get "partners/:partner_id/users/edit", :to => "devise/registrations#edit", :as => :edit_partner_user_registration
+    put "partners/:partner_id/users", :to => "devise/registrations#update"
+    delete "partners/:partner_id/users", :to => "devise/registrations#destroy"
+  end
+  resources :partners, :only => :show do
+    resources :api_keys, :only => [:create, :destroy]
+    resources :users, :only => :show
+  end
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

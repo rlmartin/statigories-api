@@ -1,0 +1,13 @@
+%p
+  Name: #{@partner.name}
+%p
+  Username: #{@partner.username}
+%p
+  Email: #{@partner.email}
+%p
+  API keys:
+%ul
+  = render :partial => "api_keys/list_view", :collection => @partner.api_keys, :as => :api_key
+  %li
+    = form_tag(partner_api_keys_path(@partner.id)) do
+      = submit_tag "Generate new set of API keys"

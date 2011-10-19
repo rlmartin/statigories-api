@@ -1,0 +1,10 @@
+%li
+  %div
+    %label Public Key:
+    = api_key.public
+  %div
+    %label Private Key:
+    = api_key.private
+  %div
+    = form_for([api_key.partner, api_key], :method => :delete) do |f|
+      = f.submit "Delete key"
