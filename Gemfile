@@ -9,7 +9,7 @@ gem "devise", ">= 1.4.5"
 gem "haml", ">= 3.1.2"
 gem "haml-rails", ">= 0.3.4", :group => :development
 gem 'jquery-rails'
-gem 'pg'
+gem 'mysql'
 gem "rspec-rails", ">= 2.6.1", :group => [:development, :test]
 
 group :assets do
